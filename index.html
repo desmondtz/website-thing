@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Class Website</title>
+  <link rel="stylesheet" href="qwe.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">CLASS<span>HUB</span></div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
+    <nav id="mainNav">
+      <button class="nav-link active" data-page="home">Home</button>
+      <button class="nav-link" data-page="about">About Us</button>
+      <button class="nav-link" data-page="purpose">Purpose</button>
+      <button class="nav-link" data-page="subjects">Subjects</button>
+      <button class="nav-link" data-page="announcements">Announcements</button>
+      <button class="nav-link" data-page="projects">Projects</button>
+      <button class="nav-link" data-page="login">Log in</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="welcome" class="welcome-panel">
+      <p class="eyebrow">WELCOME TO OUR CLASS</p>
+      <h1>Learn together.<br><span>Grow together.</span></h1>
+      <p>A shared space for our subjects, weekly lessons, announcements, and class projects.</p>
+      <button class="primary-btn" data-go="home">Explore the website</button>
+    </section>
+
+    <section id="home" class="page active-page">
+      <div class="section-heading">
+        <p class="eyebrow">YOUR CLASS IN ONE PLACE</p>
+        <h2>Class dashboard</h2>
+        <p>Quick access to the information and activities you need.</p>
+      </div>
+      <div class="card-grid">
+        <button class="feature-card" data-go="subjects"><span class="card-icon">📚</span><h3>Subjects & Weeks</h3><p>Browse subjects and weekly learning materials.</p><span class="card-action">View subjects →</span></button>
+        <button class="feature-card" data-go="announcements"><span class="card-icon">📢</span><h3>Announcements</h3><p>Check the latest class reminders and updates.</p><span class="card-action">Read updates →</span></button>
+        <button class="feature-card" data-go="projects"><span class="card-icon">🗂️</span><h3>Class Projects</h3><p>Share a project title and a link to your work.</p><span class="card-action">Open projects →</span></button>
+      </div>
+      <div class="content-card">
+        <h3>Latest announcements</h3>
+        <div id="homeAnnouncements" class="announcement-list"></div>
+      </div>
+    </section>
+
+    <section id="about" class="page">
+      <div class="section-heading"><p class="eyebrow">GET TO KNOW US</p><h2>About our section</h2><p>We learn, collaborate, and help one another succeed.</p></div>
+      <div class="content-card">
+        <h3>Our section</h3>
+        <p>We are a class community committed to learning, teamwork, creativity, and respect.</p>
+        <h3>Our officers</h3>
+        <ul class="officer-list">
+          <li><strong>President:</strong> [Name of president]</li>
+          <li><strong>Vice President:</strong> [Name of vice president]</li>
+          <li><strong>Secretary:</strong> [Name of secretary]</li>
+          <li><strong>Treasurer:</strong> [Name of treasurer]</li>
+        </ul>
+        <h3>Our mantra</h3>
+        <blockquote>“Together we learn, together we achieve.”</blockquote>
+        <p class="hint">Palitan ang sample details ng totoong pangalan at mantra ng inyong section.</p>
+      </div>
+    </section>
+
+    <section id="purpose" class="page">
+      <div class="section-heading"><p class="eyebrow">WHY THIS WEBSITE EXISTS</p><h2>Purpose of the website</h2></div>
+      <div class="card-grid">
+        <article class="feature-card"><span class="card-icon">🧭</span><h3>Stay organized</h3><p>Keep subjects, weeks, and learning resources easy to find.</p></article>
+        <article class="feature-card"><span class="card-icon">🔔</span><h3>Stay informed</h3><p>Make class announcements and reminders accessible in one place.</p></article>
+        <article class="feature-card"><span class="card-icon">🤝</span><h3>Collaborate</h3><p>Help classmates discover and learn from one another's projects.</p></article>
+      </div>
+    </section>
+
+    <section id="subjects" class="page">
+      <div class="section-heading"><p class="eyebrow">LEARNING MATERIALS</p><h2>Subject tabs</h2><p>Select a subject to see its weekly topics.</p></div>
+      <div id="subjectTabs" class="tabs">
+        <button class="tab active" data-subject="Programming">Programming</button>
+        <button class="tab" data-subject="Web Development">Web Development</button>
+        <button class="tab" data-subject="Computer Systems">Computer Systems</button>
+      </div>
+      <div class="content-card">
+        <h3 id="subjectTitle">Programming</h3>
+        <p class="muted">Choose a week to view its topic and notes.</p>
+        <div id="weekList" class="week-list"></div>
+        <div id="weekDetails" class="week-details"><h3>Select a week</h3><p>The selected week's information will appear here.</p></div>
+      </div>
+    </section>
+
+    <section id="announcements" class="page">
+      <div class="section-heading"><p class="eyebrow">DON'T MISS AN UPDATE</p><h2>Important announcements</h2><p>Sample announcements are provided below. Admins can add new ones in this demo.</p></div>
+      <div id="announcementList" class="announcement-list"></div>
+      <div class="content-card admin-panel">
+        <h3>Add an announcement (demo)</h3>
+        <form id="announcementForm">
+          <label for="announcementTitle">Announcement title</label>
+          <input id="announcementTitle" required maxlength="100" placeholder="e.g. Project deadline">
+          <label for="announcementText">Details</label>
+          <textarea id="announcementText" required rows="3" placeholder="Write the announcement here..."></textarea>
+          <button class="primary-btn" type="submit">Add announcement</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="projects" class="page">
+      <div class="section-heading"><p class="eyebrow">SHOW WHAT YOU'VE MADE</p><h2>Projects for the room</h2><p>Share a project title, your name, and a link to your work.</p></div>
+      <div class="content-card">
+        <form id="projectForm">
+          <label for="studentName">Your name</label>
+          <input id="studentName" required maxlength="80" placeholder="Enter your name">
+          <label for="projectTitle">Project title</label>
+          <input id="projectTitle" required maxlength="120" placeholder="Enter your project title">
+          <label for="projectLink">Project link (optional)</label>
+          <input id="projectLink" type="url" placeholder="https://example.com">
+          <button class="primary-btn" type="submit">Submit project</button>
+        </form>
+      </div>
+      <div id="projectList" class="project-list"></div>
+      <p class="hint">Demo only: projects are saved in this browser, not sent to a teacher or shared with classmates.</p>
+    </section>
+
+    <section id="login" class="page">
+      <div class="section-heading"><p class="eyebrow">MEMBER ACCESS</p><h2>Log in</h2><p>Use this form to demonstrate the login interface.</p></div>
+      <div class="content-card login-card">
+        <form id="loginForm">
+          <label for="username">Username</label>
+          <input id="username" required autocomplete="username" placeholder="Enter username">
+          <label for="password">Password</label>
+          <input id="password" type="password" required autocomplete="current-password" placeholder="Enter password">
+          <button class="primary-btn full-width" type="submit">Log in</button>
+          <p id="loginMessage" class="form-message" aria-live="polite"></p>
+          <p class="hint">This is a front-end demo. Do not use a real password. Real authentication needs a secure server and database.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> ClassHub · Made for our class community</p>
+    <button id="logoutBtn" class="text-btn">Log out</button>
+  </footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="asd.js"></script>
+</body>
+</html>
