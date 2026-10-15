@@ -2,6 +2,7 @@ import hashlib
 import hmac
 import json
 import mimetypes
+import os
 import secrets
 import sqlite3
 import threading
@@ -13,7 +14,7 @@ from urllib.parse import urlsplit
 
 
 ROOT = Path(__file__).resolve().parent
-DATABASE = ROOT / "classhub.db"
+DATABASE = Path(os.environ.get("DATABASE_PATH", ROOT / "classhub.db"))
 PASSWORD_ITERATIONS = 260_000
 SESSION_LIFETIME = 8 * 60 * 60
 SESSIONS = {}
@@ -115,6 +116,9 @@ class ClassHubHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         path = urlsplit(self.path).path
+        if path == "/health":
+            self.send_json(200, {"ok": True})
+            return
         if path == "/":
             self.send_response(302)
             self.send_header("Location", "/index.htm")
@@ -199,9 +203,15 @@ class ClassHubHandler(BaseHTTPRequestHandler):
                 "student_id": student["id_code"],
                 "expires_at": time.time() + SESSION_LIFETIME,
             }
+        secure_cookie = (
+            "; Secure"
+            if self.headers.get("X-Forwarded-Proto", "").split(",", 1)[0].strip()
+            == "https"
+            else ""
+        )
         cookie = (
             f"classhub_session={token}; HttpOnly; SameSite=Strict; "
-            f"Path=/; Max-Age={SESSION_LIFETIME}"
+            f"Path=/; Max-Age={SESSION_LIFETIME}{secure_cookie}"
         )
         self.send_json(200, {"ok": True}, (("Set-Cookie", cookie),))
 
@@ -234,8 +244,9 @@ class ClassHubHandler(BaseHTTPRequestHandler):
 
 def main():
     initialize_database()
-    server = ThreadingHTTPServer(("127.0.0.1", 8000), ClassHubHandler)
-    print("ClassHub is running at http://127.0.0.1:8000")
+    port = int(os.environ.get("PORT", "8000"))
+    server = ThreadingHTTPServer(("0.0.0.0", port), ClassHubHandler)
+    print(f"ClassHub is listening on port {port}")
     print("Seed accounts: 12-3456 and 26-1234 (local demo password: 1234)")
     try:
         server.serve_forever()

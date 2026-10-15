@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: classhub
+    runtime: python
+    plan: starter
+    buildCommand: python -m py_compile server.py
+    startCommand: python server.py
+    healthCheckPath: /health
+    disk:
+      name: classhub-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: DATABASE_PATH
+        value: /var/data/classhub.db
