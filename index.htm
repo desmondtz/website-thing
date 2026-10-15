@@ -1,116 +1,288 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="theme-color" content="#f4f7f3">
-	<title>Student Portal | Sign in</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="login.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#f4f7f3">
+        <title>Student Portal | Sign in</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+        
+        <style>
+                :root {
+                        --tcu-red: #d90429;
+                        --tcu-red-dark: #b80423;
+                        --tcu-red-light: #fdf2f2;
+                        --tcu-red-border: #f5c6cb;
+                        --text-primary: #1a1a1a;
+                        --text-muted: #666666;
+                        --bg-page: #f4f7f3;
+                }
+
+                body {
+                        margin: 0;
+                        padding: 0;
+                        font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                        background-color: var(--bg-page);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        min-height: 100vh;
+                }
+
+                .portal-shell {
+                        width: 100%;
+                        max-width: 400px;
+                        padding: 20px;
+                        box-sizing: border-box;
+                }
+
+                .form-panel {
+                        background: #ffffff;
+                        border-radius: 16px;
+                        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+                        padding: 32px 28px 20px 28px;
+                }
+
+                .logo-wrap {
+                        text-align: center;
+                        margin-bottom: 12px;
+                }
+
+                .school-logo {
+                        width: 80px;
+                        height: 80px;
+                        object-fit: contain;
+                }
+
+                .portal-brand {
+                        font-family: 'Manrope', sans-serif;
+                        font-size: 11px;
+                        font-weight: 800;
+                        letter-spacing: 0.8px;
+                        color: var(--text-primary);
+                        text-align: center;
+                        margin-top: 0;
+                        margin-bottom: 20px;
+                }
+
+                .portal-brand span {
+                        font-weight: 500;
+                        color: var(--text-muted);
+                }
+
+                .form-heading h1 {
+                        font-family: 'Manrope', sans-serif;
+                        font-size: 24px;
+                        font-weight: 700;
+                        margin: 0 0 6px 0;
+                        color: var(--text-primary);
+                }
+
+                .form-heading p {
+                        font-size: 13px;
+                        color: var(--text-muted);
+                        margin-top: 0;
+                        margin-bottom: 24px;
+                        line-height: 1.4;
+                }
+
+                .field-group {
+                        margin-bottom: 18px;
+                }
+
+                .field-group label {
+                        display: block;
+                        font-size: 12px;
+                        font-weight: 600;
+                        color: var(--text-primary);
+                        margin-bottom: 6px;
+                }
+
+                .label-row {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                }
+
+                .text-control {
+                        background: none;
+                        border: none;
+                        font-size: 12px;
+                        color: var(--text-muted);
+                        cursor: pointer;
+                        padding: 0;
+                }
+
+                .text-control:hover {
+                        color: var(--tcu-red);
+                }
+
+                input[type="text"],
+                input[type="password"] {
+                        width: 100%;
+                        padding: 11px 14px;
+                        border: 1px solid #d1d5db;
+                        border-radius: 8px;
+                        font-size: 14px;
+                        box-sizing: border-box;
+                        outline: none;
+                        transition: border-color 0.2s, box-shadow 0.2s;
+                }
+
+                /* TCU Red Border pag nag-focus sa input */
+                input[type="text"]:focus,
+                input[type="password"]:focus {
+                        border-color: var(--tcu-red);
+                        box-shadow: 0 0 0 3px rgba(217, 4, 41, 0.1);
+                }
+
+                /* TCU Red Submit Button */
+                .submit-button {
+                        width: 100%;
+                        background-color: var(--tcu-red);
+                        color: #ffffff;
+                        border: none;
+                        border-radius: 8px;
+                        padding: 12px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        gap: 8px;
+                        margin-top: 10px;
+                        transition: background-color 0.2s;
+                }
+
+                .submit-button:hover {
+                        background-color: var(--tcu-red-dark);
+                }
+
+                .submit-button:disabled {
+                        background-color: #e5e7eb;
+                        color: #9ca3af;
+                        cursor: not-allowed;
+                }
+
+                .form-message {
+                        font-size: 12px;
+                        color: var(--tcu-red);
+                        margin-top: 10px;
+                        text-align: center;
+                }
+
+                /* Security Note Styling */
+                .security-note {
+                        background-color: var(--tcu-red-light);
+                        border: 1px solid var(--tcu-red-border);
+                        border-radius: 8px;
+                        padding: 10px 12px;
+                        display: flex;
+                        align-items: flex-start;
+                        gap: 8px;
+                        margin-top: 20px;
+                        margin-bottom: 16px;
+                }
+
+                .security-note .lock-icon {
+                        color: var(--tcu-red);
+                        font-size: 12px;
+                        margin-top: 1px;
+                }
+
+                .security-note p {
+                        margin: 0;
+                        font-size: 12px;
+                        color: #9b1c1c;
+                        line-height: 1.4;
+                }
+
+                .help-copy, .demo-note {
+                        font-size: 11px;
+                        color: var(--text-muted);
+                        text-align: center;
+                        margin: 4px 0;
+                }
+
+                .page-footer {
+                        display: flex;
+                        justify-content: space-between;
+                        margin-top: 20px;
+                        padding-top: 12px;
+                        border-top: 1px solid #eeeeee;
+                        font-size: 10px;
+                        color: #999999;
+                }
+        </style>
 </head>
 <body>
-	<main class="portal-shell">
-		<section class="form-panel" id="sign-in" aria-labelledby="form-title">
-			<div class="form-wrap">
-				<p class="portal-brand">CLASSHUB <span>STUDENT PORTAL</span></p>
-				<div class="form-heading">
-					<h1 id="form-title">Sign in</h1>
-					<p>Enter your student ID code and password to continue.</p>
-				</div>
+        <main class="portal-shell">
+                <section class="form-panel" id="sign-in" aria-labelledby="form-title">
+                        <div class="form-wrap">
+                                <!-- TCU LOGO -->
+                                <div class="logo-wrap">
+                                        <img src="TCU LOGO.png" alt="Taguig City University Logo" class="school-logo">
+                                </div>
 
-				<form id="studentLogin" novalidate>
-					<div class="field-group">
-						<label for="studentId">Student ID code</label>
-						<input id="studentId" name="studentId" type="text" autocomplete="username" placeholder="e.g. 26-1234" required>
-					</div>
+                                <p class="portal-brand">CLASSHUB <span>STUDENT PORTAL</span></p>
+                                
+                                <div class="form-heading">
+                                        <h1 id="form-title">Sign in</h1>
+                                        <p>Enter your student ID code and password to continue.</p>
+                                </div>
 
-					<div class="field-group">
-						<div class="label-row">
-							<label for="studentPassword">Password</label>
-							<button class="text-control" id="togglePassword" type="button" aria-controls="studentPassword" aria-pressed="false">Show</button>
-						</div>
-						<input id="studentPassword" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
-					</div>
+                                <form id="studentLogin" novalidate>
+                                        <div class="field-group">
+                                                <label for="studentId">Student ID code</label>
+                                                <input id="studentId" name="studentId" type="text" autocomplete="username" placeholder="e.g. 26-1234" required>
+                                        </div>
 
-					<button class="submit-button" type="submit">
-						<span>Sign in</span>
-						<span class="button-arrow" aria-hidden="true">&#8594;</span>
-					</button>
-					<p class="form-message" id="formMessage" role="status" aria-live="polite"></p>
-				</form>
+                                        <div class="field-group">
+                                                <div class="label-row">
+                                                        <label for="studentPassword">Password</label>
+                                                        <button class="text-control" id="togglePassword" type="button" aria-controls="studentPassword" aria-pressed="false">Show</button>
+                                                </div>
+                                                <input id="studentPassword" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+                                        </div>
 
-				<div class="security-note">
-					<span class="lock-icon" aria-hidden="true">&#9673;</span>
-					<p>Your student ID and password are private. Never share them with anyone.</p>
-				</div>
-				<p class="help-copy">Having trouble signing in? Ask your school administrator.</p>
-				<p class="demo-note">Use your student account to access the class portal.</p>
-			</div>
-			<footer class="page-footer"><span>ClassHub Student Portal</span><span>For students</span></footer>
-		</section>
-	</main>
+                                        <button class="submit-button" type="submit">
+                                                <span>Sign in</span>
+                                                <span class="button-arrow" aria-hidden="true">&#8594;</span>
+                                        </button>
+                                        <p class="form-message" id="formMessage" role="status" aria-live="polite"></p>
+                                </form>
 
-	<script>
-		const passwordInput = document.getElementById("studentPassword");
-		const visibilityButton = document.getElementById("togglePassword");
-		const loginForm = document.getElementById("studentLogin");
-		const formMessage = document.getElementById("formMessage");
-		const offlineAlertKey = "classhub-offline-session-ended";
+                                <div class="security-note">
+                                        <span class="lock-icon" aria-hidden="true">&#9673;</span>
+                                        <p>Your student ID and password are private. Never share them with anyone.</p>
+                                </div>
+                                <p class="help-copy">Having trouble signing in? Ask your school administrator.</p>
+                                <p class="demo-note">Use your student account to access the class portal.</p>
+                        </div>
+                        <footer class="page-footer"><span>ClassHub Student Portal</span><span>For students</span></footer>
+                </section>
+        </main>
 
-		try {
-			if (sessionStorage.getItem(offlineAlertKey) === "true") {
-				sessionStorage.removeItem(offlineAlertKey);
-				alert("Session Terminated: Offline for 30 seconds.\nLogging out...");
-			}
-		} catch {
-			// Sign-in remains available when session storage is disabled.
-		}
+        <script>
+                const passwordInput = document.getElementById("studentPassword");
+                const visibilityButton = document.getElementById("togglePassword");
+                const loginForm = document.getElementById("studentLogin");
+                const formMessage = document.getElementById("formMessage");
+                const offlineAlertKey = "classhub-offline-session-ended";
 
-		visibilityButton.addEventListener("click", () => {
-			const revealPassword = passwordInput.type === "password";
-			passwordInput.type = revealPassword ? "text" : "password";
-			visibilityButton.textContent = revealPassword ? "Hide" : "Show";
-			visibilityButton.setAttribute("aria-pressed", String(revealPassword));
-		});
+                try {
+                        if (sessionStorage.getItem(offlineAlertKey) === "true") {
+                                sessionStorage.removeItem(offlineAlertKey);
+                                alert("Session Terminated: Offline for 30 seconds.\nLogging out...");
+                        }
+                } catch {
+                        // Sign-in remains available when session storage is disabled.
+                }
 
-		loginForm.addEventListener("submit", event => {
-			event.preventDefault();
-			if (!loginForm.reportValidity()) return;
-			formMessage.textContent = "";
-			if (window.location.protocol === "file:") {
-				formMessage.textContent = "Open the portal at http://127.0.0.1:8000/ so the sign-in server can verify your account.";
-				return;
-			}
-			const submitButton = loginForm.querySelector(".submit-button");
-			submitButton.disabled = true;
-			fetch("/api/login", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({
-					studentId: document.getElementById("studentId").value,
-					password: passwordInput.value
-				})
-			})
-				.then(async response => {
-					const contentType = response.headers.get("content-type") || "";
-					if (!contentType.includes("application/json")) {
-						throw new Error("The sign-in server returned an unexpected response. Open the portal at http://127.0.0.1:8000/ and try again.");
-					}
-					const result = await response.json().catch(() => {
-						throw new Error("The sign-in server returned an invalid response. Restart the server and try again.");
-					});
-					if (!response.ok) throw new Error(result.error || "Sign-in failed.");
-					window.location.assign("/qwe.html");
-				})
-				.catch(error => {
-					formMessage.textContent = error.message === "Failed to fetch"
-						? "Unable to reach the sign-in server. Start the ClassHub server and try again."
-						: error.message;
-					submitButton.disabled = false;
-				});
-		});
-	</script>
-</body>
-</html>
+                visibilityButton.addEventListener("click", () => {
+                        const revealPassword = passwordInput.type === "password";
+                        passwordInput.type = revealPassword ? "text" : "password";
+                        visibilityButton.textContent =
