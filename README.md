@@ -1,4 +1,4 @@
-Taguig City University Class Hub - (TCU Class Hub)
+<center><h1>Taguig City University Class Hub - (TCU Class Hub)</center></h1>
 
 
 <p>Members:</p>
