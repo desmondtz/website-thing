@@ -7,6 +7,6 @@ Taguig City University Class Hub - (TCU Class Hub)
 <p>Orcajada, Erha</p>
 <p>Aves, Prince</p>
 ===================
-<p>Jackson Michael aka</p>.
+<p>Jackson Michael aka</p>
 <p>Paulino, John Michael</p>
 ===================
