@@ -1,12 +1,12 @@
 Taguig City University Class Hub - (TCU Class Hub)
 
 
-Members:
-Nicolas, Stephen
-Gregorio, Zhieck
-Orcajada, Erha
-Aves, Prince
+<p>Members:</p>
+<p>Nicolas, Stephen</p>
+<p>Gregorio, Zhieck</p>
+<p>Orcajada, Erha</p>
+<p>Aves, Prince</p>
 ===================
-Jackson Michael aka.
-Paulino, John Michael
+<p>Jackson Michael aka</p>.
+<p>Paulino, John Michael</p>
 ===================
