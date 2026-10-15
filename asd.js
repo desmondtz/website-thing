@@ -3,6 +3,33 @@ const navLinks = document.querySelectorAll(".nav-link");
 const welcomePanel = document.getElementById("welcome");
 const mainNav = document.getElementById("mainNav");
 const toast = document.getElementById("toast");
+const profileMenu = document.getElementById("profileMenu");
+const profileTrigger = document.getElementById("profileTrigger");
+const lightModeButton = document.getElementById("lightMode");
+const darkModeButton = document.getElementById("darkMode");
+const offlineLimit = 30_000;
+let hiddenSince = null;
+let offlineTimer = null;
+let endingOfflineSession = false;
+
+fetch("/api/me")
+  .then(response => {
+    if (!response.ok) {
+      window.location.replace("/index.htm");
+      return null;
+    }
+    return response.json();
+  })
+  .then(student => {
+    if (!student) return;
+    document.getElementById("profileName").textContent = student.name;
+    document.getElementById("profileSection").textContent = student.courseSection;
+    const initials = student.name.trim().split(/\s+/).map(part => part[0]).join("").slice(0, 2).toUpperCase();
+    document.querySelectorAll(".profile-avatar").forEach(avatar => {
+      avatar.textContent = initials || "S";
+    });
+  })
+  .catch(() => window.location.replace("/index.htm"));
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -26,6 +53,83 @@ document.querySelectorAll("[data-go]").forEach(button => {
   button.addEventListener("click", () => showPage(button.dataset.go));
 });
 document.getElementById("menuToggle").addEventListener("click", () => mainNav.classList.toggle("open"));
+
+function setTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  lightModeButton.setAttribute("aria-pressed", String(theme === "light"));
+  darkModeButton.setAttribute("aria-pressed", String(theme === "dark"));
+  try {
+    localStorage.setItem("classhub-theme", theme);
+  } catch {
+    // Keep the selected theme for this page view if browser storage is unavailable.
+  }
+}
+
+let savedTheme = "light";
+try {
+  savedTheme = localStorage.getItem("classhub-theme") === "dark" ? "dark" : "light";
+} catch {
+  savedTheme = "light";
+}
+setTheme(savedTheme);
+
+profileTrigger.addEventListener("click", () => {
+  const isOpen = profileMenu.classList.toggle("open");
+  profileTrigger.setAttribute("aria-expanded", String(isOpen));
+});
+
+document.addEventListener("click", event => {
+  if (!profileMenu.contains(event.target)) {
+    profileMenu.classList.remove("open");
+    profileTrigger.setAttribute("aria-expanded", "false");
+  }
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") {
+    profileMenu.classList.remove("open");
+    profileTrigger.setAttribute("aria-expanded", "false");
+    profileTrigger.focus();
+  }
+});
+
+lightModeButton.addEventListener("click", () => setTheme("light"));
+darkModeButton.addEventListener("click", () => setTheme("dark"));
+
+function terminateOfflineSession() {
+  if (endingOfflineSession) return;
+  endingOfflineSession = true;
+  window.clearTimeout(offlineTimer);
+  fetch("/api/logout", { method: "POST", keepalive: true })
+    .catch(() => {})
+    .finally(() => {
+      try {
+        sessionStorage.setItem("classhub-offline-session-ended", "true");
+      } catch {
+        window.alert("Session Terminated: Offline for 30 seconds.\nLogging out...");
+      }
+      window.location.replace("/index.htm");
+    });
+}
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    hiddenSince = Date.now();
+    window.clearTimeout(offlineTimer);
+    offlineTimer = window.setTimeout(() => {
+      if (document.hidden && Date.now() - hiddenSince >= offlineLimit) {
+        terminateOfflineSession();
+      }
+    }, offlineLimit);
+    return;
+  }
+
+  if (hiddenSince === null) return;
+  const awayDuration = Date.now() - hiddenSince;
+  hiddenSince = null;
+  window.clearTimeout(offlineTimer);
+  if (awayDuration >= offlineLimit) terminateOfflineSession();
+});
 
 const defaultAnnouncements = [
   { title: "Welcome to our class website", text: "Explore the subject pages and check back for class updates.", date: new Date().toLocaleDateString() },
@@ -134,19 +238,9 @@ document.getElementById("projectForm").addEventListener("submit", event => {
   showToast("Project added in this browser.");
 });
 
-document.getElementById("loginForm").addEventListener("submit", event => {
-  event.preventDefault();
-  const username = document.getElementById("username").value.trim();
-  const message = document.getElementById("loginMessage");
-  message.textContent = `Demo only: login form received for "${username}". No account was authenticated.`;
-  showToast("This login is only a front-end demo.");
-});
-
 document.getElementById("logoutBtn").addEventListener("click", () => {
-  document.getElementById("loginForm").reset();
-  document.getElementById("loginMessage").textContent = "";
-  showPage("home");
-  showToast("Demo logged out.");
+  fetch("/api/logout", { method: "POST" })
+    .finally(() => window.location.assign("/index.htm"));
 });
 
 function escapeHTML(value) {

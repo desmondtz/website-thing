@@ -17,8 +17,26 @@
       <button class="nav-link" data-page="subjects">Subjects</button>
       <button class="nav-link" data-page="announcements">Announcements</button>
       <button class="nav-link" data-page="projects">Projects</button>
-      <button class="nav-link" data-page="login">Log in</button>
     </nav>
+    <div class="profile-menu" id="profileMenu">
+      <button class="profile-trigger" id="profileTrigger" type="button" aria-label="Open student profile menu" aria-haspopup="true" aria-expanded="false">
+        <span class="profile-avatar" aria-hidden="true">S</span>
+      </button>
+      <div class="profile-dropdown" id="profileDropdown" aria-label="Student profile and settings">
+        <div class="profile-identity">
+          <span class="profile-avatar profile-avatar-large" aria-hidden="true">S</span>
+          <div><strong id="profileName">Student Name</strong><span id="profileSection">BSCS-1D</span></div>
+        </div>
+        <div class="profile-setting">
+          <span class="setting-label">Appearance</span>
+          <div class="theme-options" role="group" aria-label="Appearance theme">
+            <button class="theme-option" id="lightMode" type="button" aria-pressed="true">Light</button>
+            <button class="theme-option" id="darkMode" type="button" aria-pressed="false">Dark</button>
+          </div>
+        </div>
+        <button class="profile-logout" id="logoutBtn" type="button">Log out</button>
+      </div>
+    </div>
   </header>
 
   <main>
@@ -120,25 +138,10 @@
       <p class="hint">Demo only: projects are saved in this browser, not sent to a teacher or shared with classmates.</p>
     </section>
 
-    <section id="login" class="page">
-      <div class="section-heading"><p class="eyebrow">MEMBER ACCESS</p><h2>Log in</h2><p>Use this form to demonstrate the login interface.</p></div>
-      <div class="content-card login-card">
-        <form id="loginForm">
-          <label for="username">Username</label>
-          <input id="username" required autocomplete="username" placeholder="Enter username">
-          <label for="password">Password</label>
-          <input id="password" type="password" required autocomplete="current-password" placeholder="Enter password">
-          <button class="primary-btn full-width" type="submit">Log in</button>
-          <p id="loginMessage" class="form-message" aria-live="polite"></p>
-          <p class="hint">This is a front-end demo. Do not use a real password. Real authentication needs a secure server and database.</p>
-        </form>
-      </div>
-    </section>
   </main>
 
   <footer>
     <p>© <span id="year"></span> ClassHub · Made for our class community</p>
-    <button id="logoutBtn" class="text-btn">Log out</button>
   </footer>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="asd.js"></script>

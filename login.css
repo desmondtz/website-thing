@@ -36,6 +36,7 @@ a {
 .portal-shell {
   display: grid;
   min-height: 100vh;
+  min-height: 100svh;
   place-items: center;
   padding: 24px;
 }
@@ -68,11 +69,6 @@ a {
 
 .form-heading {
   margin-bottom: 36px;
-}
-
-.form-heading h2 {
-  margin: 0 0 9px;
-  font: 700 clamp(2rem, 3vw, 2.6rem)/1.2 Manrope, sans-serif;
 }
 
 .form-heading h1 {
@@ -243,11 +239,11 @@ a {
 
 @media (max-width: 700px) {
   .portal-shell {
-    padding: 18px;
+    padding: 20px;
   }
 
   .form-panel {
-    padding: 30px 24px;
+    padding: 28px clamp(20px, 6vw, 30px);
   }
 
   .portal-brand {
@@ -256,6 +252,45 @@ a {
 
   .form-heading {
     margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 380px) {
+  .portal-shell {
+    padding: 12px;
+  }
+
+  .form-panel {
+    padding: 24px 18px;
+  }
+
+  .portal-brand {
+    margin-bottom: 26px;
+  }
+
+  .form-heading {
+    margin-bottom: 24px;
+  }
+
+  #studentLogin {
+    gap: 18px;
+  }
+
+  .security-note {
+    margin-top: 22px;
+  }
+
+  .help-copy {
+    margin-top: 20px;
+  }
+
+  .demo-note {
+    margin-top: 20px;
+  }
+
+  .page-footer {
+    flex-wrap: wrap;
+    font-size: .7rem;
   }
 }
 

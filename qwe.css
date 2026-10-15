@@ -9,6 +9,26 @@
   --line: #e5e8f1;
   --surface: #fff4f4;
   --background: #eff1ff;
+  --header: rgba(255, 255, 255, .96);
+  --control-surface: #fff;
+  --subtle-surface: #f7f8ff;
+  --profile-shadow: 0 14px 34px #18223824;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #edf1f8;
+  --muted: #aeb8c9;
+  --blue: #5068d7;
+  --blue-dark: #647bea;
+  --pale: #29334d;
+  --line: #3a455b;
+  --surface: #222b3d;
+  --background: #151c29;
+  --header: rgba(25, 33, 47, .97);
+  --control-surface: #202a3b;
+  --subtle-surface: #1b2434;
+  --profile-shadow: 0 14px 34px #0008;
 }
 * { 
   box-sizing: border-box; 
@@ -24,6 +44,54 @@ body {
    color: var(--ink); 
    font-family: 'DM Sans', sans-serif; line-height: 1.6; 
   }
+
+body,
+.topbar,
+.nav-link,
+.profile-trigger,
+.profile-dropdown,
+.theme-option,
+.feature-card,
+.content-card,
+.announcement-item,
+.project-item,
+.card-icon,
+.tab,
+.week-btn,
+.week-details,
+blockquote,
+input,
+textarea,
+.primary-btn,
+.menu-toggle,
+footer {
+  transition: color .24s ease, background-color .24s ease, border-color .24s ease, box-shadow .24s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  .topbar,
+  .nav-link,
+  .profile-trigger,
+  .profile-dropdown,
+  .theme-option,
+  .feature-card,
+  .content-card,
+  .announcement-item,
+  .project-item,
+  .card-icon,
+  .tab,
+  .week-btn,
+  .week-details,
+  blockquote,
+  input,
+  textarea,
+  .primary-btn,
+  .menu-toggle,
+  footer {
+    transition: none;
+  }
+}
 
 button, input, textarea {
    font: inherit; 
@@ -42,7 +110,7 @@ button {
      justify-content: space-between; 
      gap: 24px; 
      padding: 15px clamp(18px, 5vw, 70px); 
-     background: rgba(247, 29, 29, 0.95); 
+    background: var(--header);
      border-bottom: 1px solid var(--line); 
      backdrop-filter: blur(12px); 
   }
@@ -57,6 +125,136 @@ button {
 
 .brand span { 
   color: var(--blue); 
+}
+
+.profile-menu {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.profile-trigger {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--control-surface);
+}
+
+.profile-avatar {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: #5b56e8;
+  font-weight: 700;
+}
+
+.profile-avatar-large {
+  width: 42px;
+  height: 42px;
+}
+
+.profile-trigger:hover,
+.profile-trigger:focus-visible {
+  border-color: var(--blue);
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue) 20%, transparent);
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 30;
+  display: none;
+  width: min(300px, calc(100vw - 32px));
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--ink);
+  background: var(--control-surface);
+  box-shadow: var(--profile-shadow);
+}
+
+.profile-menu.open .profile-dropdown {
+  display: block;
+}
+
+.profile-identity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--line);
+}
+
+.profile-identity div {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.profile-identity strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-identity div span,
+.setting-label {
+  color: var(--muted);
+  font-size: .82rem;
+}
+
+.profile-setting {
+  display: grid;
+  gap: 9px;
+  padding: 14px 0;
+}
+
+.theme-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--subtle-surface);
+}
+
+.theme-option {
+  min-height: 34px;
+  border: 0;
+  border-radius: 5px;
+  color: var(--muted);
+  background: transparent;
+  font-size: .85rem;
+}
+
+.theme-option[aria-pressed="true"] {
+  color: var(--ink);
+  background: var(--control-surface);
+  box-shadow: 0 1px 4px #18223820;
+}
+
+.profile-logout {
+  width: 100%;
+  padding: 10px 0 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+  color: #c34f59;
+  background: transparent;
+  text-align: left;
+  font-weight: 700;
+}
+
+.profile-logout:hover {
+  color: #e06b73;
 }
 
 nav { 
@@ -437,6 +635,67 @@ footer {
   transform: translateY(0); 
 }
 
+:root[data-theme="dark"] .feature-card,
+:root[data-theme="dark"] .content-card,
+:root[data-theme="dark"] .announcement-item,
+:root[data-theme="dark"] .project-item,
+:root[data-theme="dark"] .tab,
+:root[data-theme="dark"] .week-btn,
+:root[data-theme="dark"] input,
+:root[data-theme="dark"] textarea,
+:root[data-theme="dark"] .menu-toggle {
+  color: var(--ink);
+  background: var(--control-surface);
+}
+
+:root[data-theme="dark"] .week-details,
+:root[data-theme="dark"] blockquote {
+  color: var(--ink);
+  background: var(--subtle-surface);
+}
+
+:root[data-theme="dark"] .nav-link {
+  color: var(--muted);
+}
+
+:root[data-theme="dark"] .nav-link:hover,
+:root[data-theme="dark"] .nav-link.active,
+:root[data-theme="dark"] .week-btn.active {
+  color: var(--blue-dark);
+  background: var(--pale);
+}
+
+:root[data-theme="dark"] .tab.active {
+  color: #fff;
+  background: var(--blue);
+}
+
+:root[data-theme="dark"] input,
+:root[data-theme="dark"] textarea,
+:root[data-theme="dark"] .week-btn,
+:root[data-theme="dark"] .tab {
+  border-color: var(--line);
+}
+
+:root[data-theme="dark"] .welcome-panel {
+  background: radial-gradient(circle at 85% 20%, #576895 0, transparent 30%), linear-gradient(120deg, #263852, #405b7b);
+}
+
+:root[data-theme="dark"] .welcome-panel h1 span,
+:root[data-theme="dark"] .welcome-panel .eyebrow,
+:root[data-theme="dark"] .welcome-panel > p:not(.eyebrow) {
+  color: #e1e8f2;
+}
+
+:root[data-theme="dark"] .welcome-panel .primary-btn {
+  color: #1b2b3f;
+}
+
+:root[data-theme="dark"] .toast {
+  color: var(--ink);
+  background: #263247;
+}
+
 @media (max-width: 850px) {
   .topbar { 
     flex-wrap: wrap; 
@@ -460,6 +719,10 @@ footer {
   .nav-link { 
     text-align: left; 
   }
+
+  .menu-toggle { order: 1; }
+  .profile-menu { order: 2; }
+  nav { order: 3; }
   
   .card-grid { 
     grid-template-columns: 1fr; 
