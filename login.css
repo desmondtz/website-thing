@@ -1,12 +1,14 @@
 :root {
   color-scheme: light;
-  --ink: #20332c;
-  --muted: #68766f;
-  --forest: #234f3d;
-  --moss: #b6d29a;
+  --ink: #1a1a1a;
+  --muted: #666;
+  --tcu-red: #d90429;
+  --tcu-red-dark: #b80423;
+  --tcu-red-light: #fdf2f2;
+  --tcu-red-border: #f5c6cb;
   --canvas: #f4f7f3;
-  --line: #dce5dc;
-  --focus: #337253;
+  --line: #d1d5db;
+  --focus: #d90429;
 }
 
 * {
@@ -39,15 +41,17 @@ a {
   min-height: 100svh;
   place-items: center;
   padding: 24px;
+  margin: 0 auto;
+  width: min(100%, 440px);
 }
 
 .form-panel {
-  width: min(100%, 480px);
-  padding: clamp(28px, 6vw, 48px);
+  width: 100%;
+  padding: 32px 28px 20px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 16px;
   background: #fff;
-  box-shadow: 0 16px 42px rgb(32 51 44 / 8%);
+  box-shadow: 0 10px 25px rgb(0 0 0 / 5%);
 }
 
 .form-wrap {
@@ -55,31 +59,48 @@ a {
 }
 
 .portal-brand {
-  margin: 0 0 40px;
-  color: var(--forest);
-  font: 800 .9rem Manrope, sans-serif;
+  margin: 0 0 20px;
+  color: var(--ink);
+  font: 800 .7rem Manrope, sans-serif;
+  letter-spacing: .8px;
+  text-align: center;
 }
 
 .portal-brand span {
   margin-left: 8px;
   color: var(--muted);
   font-size: .72rem;
-  font-weight: 600;
+  font-weight: 500;
+}
+
+.logo-wrap {
+  display: grid;
+  justify-items: center;
+  margin-bottom: 12px;
+}
+
+.school-logo {
+  display: block;
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
 }
 
 .form-heading {
-  margin-bottom: 36px;
+  margin-bottom: 24px;
 }
 
 .form-heading h1 {
-  margin: 0 0 9px;
-  font: 700 clamp(2rem, 3vw, 2.6rem)/1.2 Manrope, sans-serif;
+  margin: 0 0 6px;
+  color: var(--ink);
+  font: 700 1.5rem/1.2 Manrope, sans-serif;
 }
 
 .form-heading > p:last-child {
   margin: 0;
   color: var(--muted);
-  font-size: .96rem;
+  font-size: .82rem;
+  line-height: 1.4;
 }
 
 #studentLogin {
@@ -89,12 +110,12 @@ a {
 
 .field-group {
   display: grid;
-  gap: 8px;
+  gap: 6px;
 }
 
 .field-group label {
-  color: #31463c;
-  font-size: .88rem;
+  color: var(--ink);
+  font-size: .75rem;
   font-weight: 700;
 }
 
@@ -106,10 +127,10 @@ a {
 
 .field-group input {
   width: 100%;
-  min-height: 52px;
-  padding: 12px 14px;
-  border: 1px solid #cfdacf;
-  border-radius: 5px;
+  min-height: 44px;
+  padding: 11px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
   outline: none;
   color: var(--ink);
   background: #fff;
@@ -117,18 +138,18 @@ a {
 }
 
 .field-group input::placeholder {
-  color: #98a49b;
+  color: #8b8b8b;
 }
 
 .field-group input:focus-visible {
   border-color: var(--focus);
-  box-shadow: 0 0 0 3px rgb(51 114 83 / 16%);
+  box-shadow: 0 0 0 3px rgb(217 4 41 / 10%);
 }
 
 .text-control {
   padding: 3px 0 3px 8px;
   border: 0;
-  color: #47795f;
+  color: var(--muted);
   background: transparent;
   font-size: .82rem;
   font-weight: 700;
@@ -136,34 +157,42 @@ a {
 
 .text-control:hover,
 .help-copy a:hover {
-  color: #203f30;
+  color: var(--tcu-red);
   text-decoration: underline;
 }
 
 .submit-button {
   display: flex;
-  min-height: 54px;
+  width: 100%;
+  min-height: 46px;
   align-items: center;
-  justify-content: space-between;
-  margin-top: 5px;
-  padding: 0 18px;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 12px;
   border: 0;
-  border-radius: 5px;
+  border-radius: 8px;
   color: white;
-  background: var(--forest);
+  background: var(--tcu-red);
+  font-size: .88rem;
   font-weight: 700;
-  transition: background .16s, transform .16s;
+  transition: background-color .2s;
 }
 
 .submit-button:hover {
-  transform: translateY(-1px);
-  background: #183c2c;
+  background: var(--tcu-red-dark);
+}
+
+.submit-button:disabled {
+  color: #9ca3af;
+  background: #e5e7eb;
+  cursor: not-allowed;
 }
 
 .submit-button:focus-visible,
 .text-control:focus-visible,
 .help-copy a:focus-visible {
-  outline: 3px solid #78a78a;
+  outline: 3px solid rgb(217 4 41 / 35%);
   outline-offset: 3px;
 }
 
@@ -174,42 +203,45 @@ a {
 
 .form-message {
   min-height: 0;
-  margin: -10px 0 0;
-  color: #994b32;
-  font-size: .85rem;
+  margin: 0;
+  color: var(--tcu-red);
+  font-size: .75rem;
+  text-align: center;
 }
 
 .form-message:not(:empty) {
   padding: 11px 12px;
-  border-left: 3px solid #c78653;
-  background: #fff5e9;
+  border-left: 3px solid var(--tcu-red);
+  background: var(--tcu-red-light);
 }
 
 .security-note {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  margin-top: 30px;
-  padding: 13px 14px;
-  border: 1px solid #dfe8d9;
-  border-radius: 5px;
-  background: #edf3e9;
+  margin-top: 20px;
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  border: 1px solid var(--tcu-red-border);
+  border-radius: 8px;
+  background: var(--tcu-red-light);
 }
 
 .lock-icon {
   padding-top: 1px;
-  color: #47795f;
-  font-size: 1rem;
+  color: var(--tcu-red);
+  font-size: .75rem;
 }
 
 .security-note p {
   margin: 0;
-  color: #526357;
-  font-size: .8rem;
+  color: #9b1c1c;
+  font-size: .75rem;
+  line-height: 1.4;
 }
 
 .help-copy {
-  margin: 24px 0 0;
+  margin: 4px 0;
   color: var(--muted);
   font-size: .84rem;
   text-align: center;
@@ -222,7 +254,7 @@ a {
 }
 
 .demo-note {
-  margin: 26px 0 0;
+  margin: 4px 0;
   color: #7b877f;
   font-size: .73rem;
   text-align: center;
@@ -232,9 +264,11 @@ a {
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  padding-top: 22px;
-  color: #7d8981;
-  font-size: .73rem;
+  margin-top: 20px;
+  padding-top: 12px;
+  border-top: 1px solid #eee;
+  color: #999;
+  font-size: .63rem;
 }
 
 @media (max-width: 700px) {
@@ -243,15 +277,15 @@ a {
   }
 
   .form-panel {
-    padding: 28px clamp(20px, 6vw, 30px);
+    padding: 28px 24px 20px;
   }
 
   .portal-brand {
-    margin-bottom: 34px;
+    margin-bottom: 20px;
   }
 
   .form-heading {
-    margin-bottom: 30px;
+    margin-bottom: 24px;
   }
 }
 
@@ -265,11 +299,11 @@ a {
   }
 
   .portal-brand {
-    margin-bottom: 26px;
+    margin-bottom: 20px;
   }
 
   .form-heading {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
 
   #studentLogin {
@@ -277,15 +311,7 @@ a {
   }
 
   .security-note {
-    margin-top: 22px;
-  }
-
-  .help-copy {
-    margin-top: 20px;
-  }
-
-  .demo-note {
-    margin-top: 20px;
+    margin-top: 18px;
   }
 
   .page-footer {

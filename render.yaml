@@ -13,3 +13,5 @@ services:
     envVars:
       - key: DATABASE_PATH
         value: /var/data/classhub.db
+      - key: STUDENT_DEFAULT_PASSWORD
+        sync: false

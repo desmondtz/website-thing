@@ -17,6 +17,7 @@ ROOT = Path(__file__).resolve().parent
 DATABASE = Path(os.environ.get("DATABASE_PATH", ROOT / "classhub.db"))
 PASSWORD_ITERATIONS = 260_000
 SESSION_LIFETIME = 8 * 60 * 60
+DEFAULT_STUDENT_PASSWORD = os.environ.get("STUDENT_DEFAULT_PASSWORD")
 SESSIONS = {}
 SESSIONS_LOCK = threading.Lock()
 PUBLIC_FILES = {"index.htm", "login.css", "qwe.css", "asd.js"}
@@ -29,6 +30,11 @@ def connect_database():
 
 
 def initialize_database():
+    if os.environ.get("RENDER") and not DEFAULT_STUDENT_PASSWORD:
+        raise RuntimeError(
+            "Set STUDENT_DEFAULT_PASSWORD in the hosting dashboard before deploying."
+        )
+    seed_password = DEFAULT_STUDENT_PASSWORD or "1234"
     with connect_database() as connection:
         connection.execute(
             """
@@ -49,7 +55,7 @@ def initialize_database():
         ):
             salt = secrets.token_bytes(16)
             password_hash = hashlib.pbkdf2_hmac(
-                "sha256", b"1234", salt, PASSWORD_ITERATIONS
+                "sha256", seed_password.encode("utf-8"), salt, PASSWORD_ITERATIONS
             )
             connection.execute(
                 """
@@ -247,7 +253,7 @@ def main():
     port = int(os.environ.get("PORT", "8000"))
     server = ThreadingHTTPServer(("0.0.0.0", port), ClassHubHandler)
     print(f"ClassHub is listening on port {port}")
-    print("Seed accounts: 12-3456 and 26-1234 (local demo password: 1234)")
+    print("Seed accounts: 12-3456 and 26-1234")
     try:
         server.serve_forever()
     except KeyboardInterrupt:

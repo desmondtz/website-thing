@@ -12,24 +12,16 @@ let hiddenSince = null;
 let offlineTimer = null;
 let endingOfflineSession = false;
 
-fetch("/api/me")
-  .then(response => {
-    if (!response.ok) {
-      window.location.replace("/index.htm");
-      return null;
-    }
-    return response.json();
-  })
-  .then(student => {
-    if (!student) return;
-    document.getElementById("profileName").textContent = student.name;
-    document.getElementById("profileSection").textContent = student.courseSection;
-    const initials = student.name.trim().split(/\s+/).map(part => part[0]).join("").slice(0, 2).toUpperCase();
-    document.querySelectorAll(".profile-avatar").forEach(avatar => {
-      avatar.textContent = initials || "S";
-    });
-  })
-  .catch(() => window.location.replace("/index.htm"));
+const student = window.ClassHubAuth.currentStudent();
+if (!student) window.location.replace("index.html");
+else {
+  document.getElementById("profileName").textContent = student.name;
+  document.getElementById("profileSection").textContent = student.courseSection;
+  const initials = student.name.trim().split(/\s+/).map(part => part[0]).join("").slice(0, 2).toUpperCase();
+  document.querySelectorAll(".profile-avatar").forEach(avatar => {
+    avatar.textContent = initials || "S";
+  });
+}
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -100,16 +92,9 @@ function terminateOfflineSession() {
   if (endingOfflineSession) return;
   endingOfflineSession = true;
   window.clearTimeout(offlineTimer);
-  fetch("/api/logout", { method: "POST", keepalive: true })
-    .catch(() => {})
-    .finally(() => {
-      try {
-        sessionStorage.setItem("classhub-offline-session-ended", "true");
-      } catch {
-        window.alert("Session Terminated: Offline for 30 seconds.\nLogging out...");
-      }
-      window.location.replace("/index.htm");
-    });
+  window.ClassHubAuth.logout();
+  window.alert("Session Terminated: Offline for 30 seconds.\nLogging out...");
+  window.location.replace("index.html");
 }
 
 document.addEventListener("visibilitychange", () => {
@@ -239,8 +224,8 @@ document.getElementById("projectForm").addEventListener("submit", event => {
 });
 
 document.getElementById("logoutBtn").addEventListener("click", () => {
-  fetch("/api/logout", { method: "POST" })
-    .finally(() => window.location.assign("/index.htm"));
+  window.ClassHubAuth.logout();
+  window.location.assign("index.html");
 });
 
 function escapeHTML(value) {
