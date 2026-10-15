@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#f4f7f3">
+	<title>Student Portal | Sign in</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="login.css">
+</head>
+<body>
+	<main class="portal-shell">
+		<section class="form-panel" id="sign-in" aria-labelledby="form-title">
+			<div class="form-wrap">
+				<p class="portal-brand">CLASSHUB <span>STUDENT PORTAL</span></p>
+				<div class="form-heading">
+					<h1 id="form-title">Sign in</h1>
+					<p>Enter your student ID code and password to continue.</p>
+				</div>
+
+				<form id="studentLogin" novalidate>
+					<div class="field-group">
+						<label for="studentId">Student ID code</label>
+						<input id="studentId" name="studentId" type="text" autocomplete="username" placeholder="e.g. 26-1234" required>
+					</div>
+
+					<div class="field-group">
+						<div class="label-row">
+							<label for="studentPassword">Password</label>
+							<button class="text-control" id="togglePassword" type="button" aria-controls="studentPassword" aria-pressed="false">Show</button>
+						</div>
+						<input id="studentPassword" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+					</div>
+
+					<button class="submit-button" type="submit">
+						<span>Sign in</span>
+						<span class="button-arrow" aria-hidden="true">&#8594;</span>
+					</button>
+					<p class="form-message" id="formMessage" role="status" aria-live="polite"></p>
+				</form>
+
+				<div class="security-note">
+					<span class="lock-icon" aria-hidden="true">&#9673;</span>
+					<p>Your student ID and password are private. Never share them with anyone.</p>
+				</div>
+				<p class="help-copy">Having trouble signing in? Ask your school administrator.</p>
+				<p class="demo-note">Sign-in verification must be connected to your school's secure account system.</p>
+			</div>
+			<footer class="page-footer"><span>ClassHub Student Portal</span><span>For students</span></footer>
+		</section>
+	</main>
+
+	<script>
+		const passwordInput = document.getElementById("studentPassword");
+		const visibilityButton = document.getElementById("togglePassword");
+		const loginForm = document.getElementById("studentLogin");
+		const formMessage = document.getElementById("formMessage");
+
+		visibilityButton.addEventListener("click", () => {
+			const revealPassword = passwordInput.type === "password";
+			passwordInput.type = revealPassword ? "text" : "password";
+			visibilityButton.textContent = revealPassword ? "Hide" : "Show";
+			visibilityButton.setAttribute("aria-pressed", String(revealPassword));
+		});
+
+		loginForm.addEventListener("submit", event => {
+			event.preventDefault();
+			if (!loginForm.reportValidity()) return;
+			window.location.assign("qwe.html");
+		});
+	</script>
+</body>
+</html>

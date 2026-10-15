@@ -1,0 +1,269 @@
+:root {
+  color-scheme: light;
+  --ink: #20332c;
+  --muted: #68766f;
+  --forest: #234f3d;
+  --moss: #b6d29a;
+  --canvas: #f4f7f3;
+  --line: #dce5dc;
+  --focus: #337253;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--ink);
+  background: var(--canvas);
+  font-family: "DM Sans", sans-serif;
+  line-height: 1.5;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.portal-shell {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 24px;
+}
+
+.form-panel {
+  width: min(100%, 480px);
+  padding: clamp(28px, 6vw, 48px);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 16px 42px rgb(32 51 44 / 8%);
+}
+
+.form-wrap {
+  width: 100%;
+}
+
+.portal-brand {
+  margin: 0 0 40px;
+  color: var(--forest);
+  font: 800 .9rem Manrope, sans-serif;
+}
+
+.portal-brand span {
+  margin-left: 8px;
+  color: var(--muted);
+  font-size: .72rem;
+  font-weight: 600;
+}
+
+.form-heading {
+  margin-bottom: 36px;
+}
+
+.form-heading h2 {
+  margin: 0 0 9px;
+  font: 700 clamp(2rem, 3vw, 2.6rem)/1.2 Manrope, sans-serif;
+}
+
+.form-heading h1 {
+  margin: 0 0 9px;
+  font: 700 clamp(2rem, 3vw, 2.6rem)/1.2 Manrope, sans-serif;
+}
+
+.form-heading > p:last-child {
+  margin: 0;
+  color: var(--muted);
+  font-size: .96rem;
+}
+
+#studentLogin {
+  display: grid;
+  gap: 22px;
+}
+
+.field-group {
+  display: grid;
+  gap: 8px;
+}
+
+.field-group label {
+  color: #31463c;
+  font-size: .88rem;
+  font-weight: 700;
+}
+
+.label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.field-group input {
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 14px;
+  border: 1px solid #cfdacf;
+  border-radius: 5px;
+  outline: none;
+  color: var(--ink);
+  background: #fff;
+  transition: border-color .16s, box-shadow .16s;
+}
+
+.field-group input::placeholder {
+  color: #98a49b;
+}
+
+.field-group input:focus-visible {
+  border-color: var(--focus);
+  box-shadow: 0 0 0 3px rgb(51 114 83 / 16%);
+}
+
+.text-control {
+  padding: 3px 0 3px 8px;
+  border: 0;
+  color: #47795f;
+  background: transparent;
+  font-size: .82rem;
+  font-weight: 700;
+}
+
+.text-control:hover,
+.help-copy a:hover {
+  color: #203f30;
+  text-decoration: underline;
+}
+
+.submit-button {
+  display: flex;
+  min-height: 54px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 5px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 5px;
+  color: white;
+  background: var(--forest);
+  font-weight: 700;
+  transition: background .16s, transform .16s;
+}
+
+.submit-button:hover {
+  transform: translateY(-1px);
+  background: #183c2c;
+}
+
+.submit-button:focus-visible,
+.text-control:focus-visible,
+.help-copy a:focus-visible {
+  outline: 3px solid #78a78a;
+  outline-offset: 3px;
+}
+
+.button-arrow {
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+.form-message {
+  min-height: 0;
+  margin: -10px 0 0;
+  color: #994b32;
+  font-size: .85rem;
+}
+
+.form-message:not(:empty) {
+  padding: 11px 12px;
+  border-left: 3px solid #c78653;
+  background: #fff5e9;
+}
+
+.security-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 30px;
+  padding: 13px 14px;
+  border: 1px solid #dfe8d9;
+  border-radius: 5px;
+  background: #edf3e9;
+}
+
+.lock-icon {
+  padding-top: 1px;
+  color: #47795f;
+  font-size: 1rem;
+}
+
+.security-note p {
+  margin: 0;
+  color: #526357;
+  font-size: .8rem;
+}
+
+.help-copy {
+  margin: 24px 0 0;
+  color: var(--muted);
+  font-size: .84rem;
+  text-align: center;
+}
+
+.help-copy a {
+  color: #47795f;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.demo-note {
+  margin: 26px 0 0;
+  color: #7b877f;
+  font-size: .73rem;
+  text-align: center;
+}
+
+.page-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 22px;
+  color: #7d8981;
+  font-size: .73rem;
+}
+
+@media (max-width: 700px) {
+  .portal-shell {
+    padding: 18px;
+  }
+
+  .form-panel {
+    padding: 30px 24px;
+  }
+
+  .portal-brand {
+    margin-bottom: 34px;
+  }
+
+  .form-heading {
+    margin-bottom: 30px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
