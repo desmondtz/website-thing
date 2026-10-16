@@ -1,6 +1,6 @@
 # ClassHub
 
-ClassHub is a static student-portal demo built with HTML, CSS, and JavaScript. GitHub Pages can host these files, so students can open the published URL from phones without your computer running a server.
+ClassHub is a static student-portal demo built with HTML, CSS, and JavaScript. 
 
 ## Members:
 - Nicolas, Stephen
