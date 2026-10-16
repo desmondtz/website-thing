@@ -2,7 +2,7 @@
 
 ClassHub is a static student-portal demo built with HTML, CSS, and JavaScript. 
 
-## Members:
+## Members
 - Nicolas, Stephen
 - Gregorio, Zhieck
 - Orcajada, Erha
